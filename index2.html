@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>City municipalities in the State of Goergia</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" type="text/css" crossorigin="">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" crossorigin=""></script>
+      <script src="bedrock.js"></script>
+      <link rel="stylesheet" href="style2.css" type="text/css">
+       
+        <script type="text/javascript">
+		
+		function init() {
+			// create a map and set the center and zoom
+			map = new L.map('mapid');
+			map.setView([32.1656221,-82.9000751], 7);
+			
+			// create and add the tile layer
+			var tiles = L.tileLayer('http://personal.psu.edu/dck5284/tiles/GeorgiaTiles/{z}/{x}/{y}.png');
+			tiles.addTo(map);
+			
+			var districtLayer;
+			
+			var selection;
+			var selectedLayer;
+			
+			// define the style for the districts layer (unselected and selected)
+			function districtStyle(feature) {
+				return {
+					fillColor: "#FFFFFF",
+					fillOpacity: 1,
+					color: '#000000'
+				};
+			}
+			
+			function districtSelectedStyle(feature) {
+				return {
+					fillColor: "#FCF537",
+					fillOpacity: 0.75,
+					color: '#FCF537'
+				};
+			}
+			
+			
+			// handle click events on the district features
+			function districtOnEachFeature (feature, layer){
+				layer.on({
+					click: function(e) {
+						if (selection) {
+							resetStyles();
+						}
+						
+						e.target.setStyle(districtSelectedStyle());
+						selection = e.target;
+						selectedLayer = districtLayer;
+						
+						// Insert some HTML with the feature name
+						buildSummaryLabel(feature);
+						
+						L.DomEvent.stopPropagation(e); // stop click event from being propgated further.
+					}
+				});
+			}
+			
+			// add the districts geoJSON layer using the myGaDistricts variable from the districts.js 
+			var districtLayer = new L.geoJSON(bedrockGeology, {
+					style: districtStyle,
+					onEachFeature: districtOnEachFeature
+			});
+			
+			districtLayer.addTo(map);
+			
+			// handle clicks on the map that didnt hit a feature
+			map.addEventListener ('click', function(e) {
+				if (selection) {
+					resetStyles();
+					selection = null;
+					document.getElementById('summaryLabel').innerHTML = '<p>Click on a district.</p>';
+				}
+			});
+			
+			// add function to set old selected feature back to its original symbol. Used when a map or feature is clicked.
+			function resetStyles(){
+				if (selectedLayer === districtLayer) selectedLayer.resetStyle(selection);
+			}
+			
+			// function to build the HTML for the summary label using the selected feature's "NAME" property
+			function buildSummaryLabel(currentFeature) {
+				var featureName = currentFeature.properties.NAME || "Unnamed feature";
+				document.getElementById('summaryLabel').innerHTML = '<p style="font-size:18px"><b>' + featureName + '</b></p>';
+			}
+			
+			
+		}
+            
+        </script>
+    </head>
+      <body onload="init()">
+        <h1 id="title">City municipalities in the state of Goergia</h1>
+
+        <div id="mapid"></div>
+        <div id="summaryLabel">
+            <p>Click a district on the map to get more information.</p>
+        </div>
+      </body>
+  </html>

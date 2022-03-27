@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>
+      Project 8
+    </title>
+
+    <link rel="stylesheet" href="main7.css"/>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.8/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.8/"></script>
+    <script src="main7.js"></script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div id="instructionsDiv" class="esri-widget">
+      <p>Use the slider below to select a number of days for how long the bottle is adrift.</p>
+	  <p>Next, click anywhere in one of the oceans. Feel free to pan around!</p>
+      <div>
+        <label for="dayInput">Days Adrift:</label>
+        <div class="rangeLabel">
+          <span id="day" class="center">0</span> days
+        </div>
+        <input class="input" id="dayInput" type="range" value="0" min="0" max="150" step="5">
+      </div>
+      <div>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>
+      Project 7
+    </title>
+
+    <link rel="stylesheet" href="main6.css"/>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.20/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.20/"></script>
+    <script src="main6.js"></script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div id="optionsDiv" class="esri-widget">
+      <div>
+        <b>Filter by Voting Region:</b>
+        <select id="regionSelect">
+          <option value="1=1">ALL</option>
+          <option value="pa_region = 'East Midlands'">East Midlands</option>
+          <option value="pa_region = 'Eastern'">Eastern</option>
+          <option value="pa_region = 'London'">London</option>
+          <option value="pa_region = 'North East'">North East</option>
+          <option value="pa_region = 'North West'">North West</option>
+          <option value="pa_region = 'Northern Ireland'">Northern Ireland</option>
+          <option value="pa_region = 'Scotland'">Scotland</option>
+          <option value="pa_region = 'South East'">South East</option>
+          <option value="pa_region = 'South West & Gibraltar'">South West & Gibraltar</option>
+          <option value="pa_region = 'Wales'">Wales</option>
+          <option value="pa_region = 'West Midlands'">West Midlands</option>
+          <option value="pa_region = 'Yorkshire & The Humber'">Yorkshire & The Humber</option>
+        </select>
+      </div>
+    </div>
+    <div class="pannel-container">
+      <div class="panel-side">
+        <h2>Voting Districts</h2>
+        <ul id="list_votingRegions">
+          <li>Select Region from Dropdown list&hellip;</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
